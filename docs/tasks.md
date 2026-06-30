@@ -6,6 +6,9 @@
 - Ingest incoming IT requests (from stdin / file / mock HTTP)
 - Classify: category (`HARDWARE | SOFTWARE | ACCESS | SECURITY | UNKNOWN`) + confidence + impact level
 - Enrich with context before routing (user role, affected asset, open tickets)
+- **Pre-routing escalation checks** (before calling any specialist):
+  - confidence < 0.7 → escalate with `reason: "confidence_low"`, do not route
+  - category = `UNKNOWN` → escalate with `reason: "category"`, do not route
 - Route to the correct specialist via Task subagent with explicit context passing
 - Validation-retry loop on structured output (schema from `src/models.ts`, max 3 retries)
 - Log full reasoning chain per request (not just the answer)
@@ -49,6 +52,7 @@ Tool descriptions must state what the tool does NOT do.
 - **Escalation triggers** (pause + notify): admin rights grant, privileged password reset, C-Level affected
 - Hook must be fully deterministic — zero LLM calls
 - Escalation output: `{ escalate: true, reason, confidence, impactLevel, requestId, summary }`
+  - `reason` values: `"category"` | `"confidence_low"` | `"c_level"` | `"sensitive_data"` | `"privileged_account"`
 - Approval surface: fast to approve, easy to override (mock CLI prompt is fine)
 
 ---
