@@ -49,18 +49,18 @@ See [`docs/architecture-adr.md`](docs/architecture-adr.md) for the full ADR and 
 ```
 frank-says/
 ├── src/
-│   ├── coordinator.py          # Coordinator agent — classify, enrich, route
+│   ├── coordinator.ts          # Coordinator agent — classify, enrich, route
 │   ├── specialists/
-│   │   ├── hardware_agent.py
-│   │   ├── software_agent.py
-│   │   ├── access_agent.py
-│   │   └── security_agent.py
+│   │   ├── hardwareAgent.ts
+│   │   ├── softwareAgent.ts
+│   │   ├── accessAgent.ts
+│   │   └── securityAgent.ts
 │   ├── tools/                  # Custom tools per specialist
 │   ├── hooks/                  # PreToolUse hook implementation
-│   └── models.py               # Shared data models + validation schemas
+│   └── models.ts               # Shared interfaces and enums
 ├── evals/
 │   ├── dataset.jsonl           # Labeled eval set (normal + adversarial)
-│   └── run_evals.py            # Eval harness
+│   └── runEvals.ts             # Eval harness
 ├── docs/
 │   ├── architecture-adr.md
 │   ├── mandate.md              # PM artifact: what the agent decides, escalates, never touches

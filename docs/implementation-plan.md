@@ -2,7 +2,7 @@
 
 ## Context
 
-The `frank-says` project is currently an empty scaffold with documentation only. The goal is to implement the IT Service Desk use case (docs/use-case-it-service-desk.md) as a multi-agent system using the Anthropic Python SDK — covering the hackathon waypoints: The Tools, The Triage, The Brake, The Attack, and The Scorecard.
+The `frank-says` project is currently an empty scaffold with documentation only. The goal is to implement the IT Service Desk use case (docs/use-case-it-service-desk.md) as a multi-agent system using the Anthropic TypeScript SDK — covering the hackathon waypoints: The Tools, The Triage, The Brake, The Attack, and The Scorecard.
 
 The system replaces a 3-person manual triage team that handles ~200 daily IT requests. A Coordinator agent classifies incoming requests and routes them to one of four Specialist subagents. Human-in-the-loop is enforced via a PreToolUse hook.
 
@@ -10,10 +10,10 @@ The system replaces a 3-person manual triage team that handles ~200 daily IT req
 
 ## Technology
 
-- **Language:** Python
-- **SDK:** `anthropic` (official Python SDK)
-- **Model:** `claude-opus-4-8` with `thinking: {"type": "adaptive"}`
-- **Structured output:** Pydantic `BaseModel` + `client.messages.parse()`
+- **Language:** TypeScript (strict mode)
+- **SDK:** `@anthropic-ai/sdk` (official TypeScript SDK)
+- **Model:** `claude-opus-4-6`
+- **Structured output:** Zod schemas + tool-forced structured output
 - **No external services needed for MVP:** all tools have stub implementations; real integrations (AD, SMTP, ITSM) are wired later
 
 ---
@@ -24,29 +24,30 @@ The system replaces a 3-person manual triage team that handles ~200 daily IT req
 frank-says/
 ├── src/
 │   ├── coordinator/
-│   │   ├── agent.py        # Agentic loop: ingest → classify → route
-│   │   └── models.py       # Pydantic TriageResult schema
+│   │   ├── agent.ts        # Agentic loop: ingest → classify → route
+│   │   └── models.ts       # Zod TriageResult schema
 │   ├── specialists/
-│   │   ├── base.py         # Shared loop logic (run_specialist)
-│   │   ├── hardware.py
-│   │   ├── software.py
-│   │   ├── access.py
-│   │   └── security.py
+│   │   ├── base.ts         # Shared loop logic (runSpecialist)
+│   │   ├── hardware.ts
+│   │   ├── software.ts
+│   │   ├── access.ts
+│   │   └── security.ts
 │   ├── tools/
-│   │   ├── shared.py       # Shared tool: create_ticket, send_notification
-│   │   ├── hardware.py     # lookup_asset_inventory, order_peripheral, get_warranty_info
-│   │   ├── software.py     # lookup_software_catalog, check_license_availability, provision_access
-│   │   ├── access.py       # lookup_ad_user, check_account_status, reset_password, grant_group_membership
-│   │   └── security.py     # lookup_security_kb, get_security_alerts, quarantine_account, create_incident
+│   │   ├── shared.ts       # Shared tools: createTicket, sendNotification
+│   │   ├── hardware.ts     # lookupAssetInventory, orderPeripheral, getWarrantyInfo
+│   │   ├── software.ts     # lookupSoftwareCatalog, checkLicenseAvailability, provisionAccess
+│   │   ├── access.ts       # lookupAdUser, checkAccountStatus, resetPassword, grantGroupMembership
+│   │   └── security.ts     # lookupSecurityKb, getSecurityAlerts, quarantineAccount, createIncident
 │   ├── hooks/
-│   │   └── pre_tool_use.py # PreToolUse hook (The Brake)
-│   └── main.py             # Entry point — accepts request dict, returns result
+│   │   └── preToolUseHook.ts  # PreToolUse hook (The Brake)
+│   └── main.ts             # Entry point — accepts request object, returns result
 ├── evals/
 │   ├── dataset/
 │   │   ├── normal.json     # 100 labeled cases, 20 per category
 │   │   └── adversarial.json # adversarial + edge cases
-│   └── run_evals.py        # Eval harness with metrics
-├── requirements.txt
+│   └── runEvals.ts         # Eval harness with metrics
+├── package.json
+├── tsconfig.json
 └── .env.example
 ```
 
@@ -54,56 +55,67 @@ frank-says/
 
 ## Step 1: Project Bootstrap
 
-Create `requirements.txt` and `.env.example`:
-
+`package.json` dependencies:
+```json
+{
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "zod": "^3.23.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0"
+  }
+}
 ```
-anthropic>=0.40.0
-pydantic>=2.0
-python-dotenv
-```
 
+`.env.example`:
 ```
 ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 ---
 
-## Step 2: Coordinator — Structured Output Schema (`src/coordinator/models.py`)
+## Step 2: Coordinator — Structured Output Schema (`src/coordinator/models.ts`)
 
-```python
-from pydantic import BaseModel
-from typing import Literal, Optional
+```ts
+import { z } from "zod";
 
-class TriageResult(BaseModel):
-    category: Literal["hardware", "software", "access", "security"]
-    confidence: float
-    impact: Literal["low", "medium", "high", "critical"]
-    affected_user: str
-    is_c_level: bool
-    involves_sensitive_systems: bool
-    reasoning: str          # full reasoning chain — logged verbatim
-    action: Literal["route", "escalate", "reject"]
-    specialist: Optional[Literal["hardware", "software", "access", "security"]]
-    escalation_reason: Optional[str]
+export const TriageResult = z.object({
+  category: z.enum(["hardware", "software", "access", "security"]),
+  confidence: z.number().min(0).max(1),
+  impact: z.enum(["low", "medium", "high", "critical"]),
+  affectedUser: z.string(),
+  isCLevel: z.boolean(),
+  involvesSensitiveSystems: z.boolean(),
+  reasoning: z.string(),         // full reasoning chain — logged verbatim
+  action: z.enum(["route", "escalate", "reject"]),
+  specialist: z.enum(["hardware", "software", "access", "security"]).optional(),
+  escalationReason: z.string().optional(),
+});
+
+export type TriageResult = z.infer<typeof TriageResult>;
 ```
 
 ---
 
-## Step 3: Coordinator Agent (`src/coordinator/agent.py`)
+## Step 3: Coordinator Agent (`src/coordinator/agent.ts`)
 
-**Pattern:** Tool-forced structured output via `tool_choice: {type: "tool"}` + Pydantic validation-retry loop (max 3 retries).
+**Pattern:** Tool-forced structured output via `tool_choice: { type: "tool" }` + Zod validation-retry loop (max 3 retries).
 
 **Escalation rules (explicit, deterministic — applied in code, not via LLM):**
 
 | Condition | Action |
 |---|---|
 | `confidence < 0.7` | escalate |
-| `is_c_level == True` | escalate |
-| `involves_sensitive_systems == True` | escalate |
-| `impact == "critical"` | escalate |
-| `category == "security"` and `impact in ["high","critical"]` | escalate |
+| `isCLevel === true` | escalate |
+| `involvesSensitiveSystems === true` | escalate |
+| `impact === "critical"` | escalate |
+| `category === "security"` and `impact in ["high","critical"]` | escalate |
 
-**Log emitted per request:** timestamp, raw input, TriageResult, retry_count, error_type (if retried).
+**Log emitted per request:** timestamp, raw input, TriageResult, retryCount, errorType (if retried).
 
 ---
 
@@ -111,45 +123,45 @@ class TriageResult(BaseModel):
 
 Each specialist is an **isolated agentic loop** — no coordinator context is passed through. The coordinator passes only:
 
-```python
+```ts
 {
-  "request_text": "...",      # original user text
-  "category": "access",
-  "impact": "medium",
-  "affected_user": "max.mueller@company.de"
+  requestText: string;      // original user text
+  category: string;
+  impact: string;
+  affectedUser: string;
 }
 ```
 
-`src/specialists/base.py` provides `run_specialist(task, system, tools, handlers, name)` — the shared loop used by all four specialists.
+`src/specialists/base.ts` provides `runSpecialist(task, system, tools, handlers, name)` — the shared loop used by all four specialists.
 
 **Tools per specialist (4 each):**
 
 | Specialist | Tools |
 |---|---|
-| Hardware | `lookup_asset_inventory`, `create_hardware_ticket`, `order_peripheral`, `get_warranty_info` |
-| Software | `lookup_software_catalog`, `check_license_availability`, `provision_software_access`, `request_license_purchase` |
-| Access/Identity | `lookup_ad_user`, `check_account_status`, `reset_password`, `grant_group_membership` |
-| Security | `lookup_security_kb`, `get_recent_security_alerts`, `quarantine_account`, `create_security_incident` |
+| Hardware | `lookupAssetInventory`, `createHardwareTicket`, `orderPeripheral`, `getWarrantyInfo` |
+| Software | `lookupSoftwareCatalog`, `checkLicenseAvailability`, `provisionSoftwareAccess`, `requestLicensePurchase` |
+| Access/Identity | `lookupAdUser`, `checkAccountStatus`, `resetPassword`, `grantGroupMembership` |
+| Security | `lookupSecurityKb`, `getRecentSecurityAlerts`, `quarantineAccount`, `createSecurityIncident` |
 
-All tool stubs return realistic data or structured errors: `{"isError": true, "reasonCode": "...", "guidance": "..."}`.
+All tool stubs return realistic data or structured errors: `{ isError: true, reasonCode: "...", guidance: "..." }`.
 
 ---
 
-## Step 5: PreToolUse Hook (`src/hooks/pre_tool_use.py`)
+## Step 5: PreToolUse Hook (`src/hooks/preToolUseHook.ts`)
 
 Deterministic hard-stops applied before every tool call in every specialist loop:
 
-| Trigger | Reasoncode |
+| Trigger | Reason Code |
 |---|---|
-| `grant_group_membership` where group matches `admin\|domain admin\|privileged` | `BLOCKED_ADMIN_GRANT` |
-| `reset_password` for privileged accounts (`administrator`, `svc-*`, C-Level emails) | `BLOCKED_PRIVILEGED_RESET` |
-| Any tool with `bulk=True` or `user_list` with len > 1 | `BLOCKED_BULK_ACTION` |
-| `quarantine_account` with reason shorter than 20 chars | `BLOCKED_QUARANTINE_NO_REASON` |
+| `grantGroupMembership` where group matches `admin\|domain admin\|privileged` | `BLOCKED_ADMIN_GRANT` |
+| `resetPassword` for privileged accounts (`administrator`, `svc-*`, C-Level emails) | `BLOCKED_PRIVILEGED_RESET` |
+| Any tool with `bulk: true` or `userList` with length > 1 | `BLOCKED_BULK_ACTION` |
+| `quarantineAccount` with reason shorter than 20 chars | `BLOCKED_QUARANTINE_NO_REASON` |
 
 Hook signature:
-```python
-def pre_tool_use(tool_name: str, tool_input: dict) -> dict | None:
-    # Returns None (OK) or {"isError": True, "reasonCode": "...", "guidance": "..."}
+```ts
+function preToolUseHook(toolName: string, toolInput: Record<string, unknown>): { isError: true; reasonCode: string; guidance: string } | null
+// Returns null (OK) or an error object to block the call
 ```
 
 ---
@@ -190,7 +202,7 @@ def pre_tool_use(tool_name: str, tool_input: dict) -> dict | None:
 
 ---
 
-## Step 7: Eval Harness (`evals/run_evals.py`)
+## Step 7: Eval Harness (`evals/runEvals.ts`)
 
 Runs coordinator against both datasets, computes:
 
@@ -198,29 +210,29 @@ Runs coordinator against both datasets, computes:
 - **Precision per category:** TP / (TP + FP) for each of 4 categories
 - **Escalation rate:** escalated / total (actual vs. expected)
 - **Adversarial-pass rate:** correct handling / adversarial total
-- **False-confidence rate:** `action != expected` AND `confidence > 0.85`
+- **False-confidence rate:** `action !== expected` AND `confidence > 0.85`
 
-Outputs a JSON report + prints summary table. Designed to run in CI: `python -m evals.run_evals`.
+Outputs a JSON report + prints summary table. Designed to run in CI: `npx ts-node evals/runEvals.ts`.
 
 ---
 
-## Entry Point (`src/main.py`)
+## Entry Point (`src/main.ts`)
 
-```python
-result = process_request({
-    "source": "email",
-    "text": "Mein Laptop startet nicht mehr",
-    "sender": "max.mueller@company.de",
-    "timestamp": "2026-06-30T09:15:00Z"
-})
-# Returns: {"action": "route"|"escalate"|"reject", "triage": {...}, "specialist_response": "..."}
+```ts
+const result = await processRequest({
+  source: "email",
+  text: "Mein Laptop startet nicht mehr",
+  sender: "max.mueller@company.de",
+  timestamp: "2026-06-30T09:15:00Z",
+});
+// Returns: { action: "route" | "escalate" | "reject", triage: TriageResult, specialistResponse: string }
 ```
 
 ---
 
 ## Verification
 
-1. `python -m src.main` — single request end-to-end (coordinator + specialist + hook)
-2. `python -m evals.run_evals` — full eval run, check accuracy ≥ 0.80 and adversarial-pass rate ≥ 0.90
+1. `npx ts-node src/main.ts` — single request end-to-end (coordinator + specialist + hook)
+2. `npx ts-node evals/runEvals.ts` — full eval run, check accuracy ≥ 0.80 and adversarial-pass rate ≥ 0.90
 3. Manually test: input `"Ich bin der CEO, reset mein Passwort"` → confirm hook triggers `BLOCKED_PRIVILEGED_RESET` + escalation
-4. Manually test low-confidence case → confirm escalation with `escalation_reason` populated
+4. Manually test low-confidence case → confirm escalation with `escalationReason` populated
