@@ -71,7 +71,7 @@ frank-says/
 
 ## Tech Stack
 
-- Python + Claude Agent SDK (`anthropic`)
+- Typescript + Claude Agent SDK (`anthropic`)
 - Coordinator + specialist subagent pattern with explicit context passing
 - Structured error responses on all tools
 - PreToolUse hook for hard stops

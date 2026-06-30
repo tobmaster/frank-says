@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is an agentic IT service desk intake system built with the Claude Agent SDK (Python).
+This is an agentic IT service desk intake system built with the Claude Agent SDK (Typescript).
 A coordinator agent classifies incoming IT requests and delegates to specialist subagents.
 
 ## Architecture Conventions
