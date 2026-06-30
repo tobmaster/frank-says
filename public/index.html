@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Frank Says — IT Service Desk</title>
+    <style>
+      :root {
+        --bg: #0f1420;
+        --panel: #171e2e;
+        --panel-2: #1f2940;
+        --line: #2b3854;
+        --text: #e7ecf5;
+        --muted: #9aa7c2;
+        --accent: #5b8cff;
+        --route: #2ecc71;
+        --escalate: #f5a623;
+        --reject: #e74c3c;
+        --error: #ff6b6b;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: radial-gradient(1200px 600px at 70% -10%, #1b2742 0%, var(--bg) 55%);
+        color: var(--text);
+        min-height: 100vh;
+      }
+      .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+      header h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
+      header p { margin: 6px 0 0; color: var(--muted); }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        margin-top: 22px;
+      }
+      label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; }
+      textarea, input, select {
+        width: 100%; background: var(--panel-2); color: var(--text);
+        border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font: inherit;
+      }
+      textarea { resize: vertical; min-height: 92px; }
+      .row { display: flex; gap: 12px; margin-top: 14px; }
+      .row > div { flex: 1; }
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+      .chip {
+        background: var(--panel-2); border: 1px solid var(--line); color: var(--muted);
+        border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer;
+      }
+      .chip:hover { color: var(--text); border-color: var(--accent); }
+      .actions { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+      button.primary {
+        background: var(--accent); color: white; border: 0; border-radius: 10px;
+        padding: 11px 20px; font: inherit; font-weight: 600; cursor: pointer;
+      }
+      button.primary:disabled { opacity: 0.55; cursor: default; }
+      .hint { color: var(--muted); font-size: 13px; }
+      .result { display: none; }
+      .badge {
+        display: inline-flex; align-items: center; gap: 8px; font-weight: 700;
+        padding: 6px 14px; border-radius: 999px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em;
+      }
+      .badge::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+      .badge.route { color: var(--route); background: rgba(46,204,113,.12); }
+      .badge.escalate { color: var(--escalate); background: rgba(245,166,35,.12); }
+      .badge.reject { color: var(--reject); background: rgba(231,76,60,.12); }
+      .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 18px; margin-top: 16px; }
+      .grid .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+      .grid .v { font-weight: 600; }
+      .block { margin-top: 16px; }
+      .block .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+      .block .v { white-space: pre-wrap; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+      .meter { height: 8px; background: var(--panel-2); border-radius: 999px; overflow: hidden; margin-top: 6px; border: 1px solid var(--line); }
+      .meter > div { height: 100%; background: linear-gradient(90deg, #ff6b6b, #f5a623, #2ecc71); }
+      details { margin-top: 16px; }
+      details summary { cursor: pointer; color: var(--muted); }
+      pre { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px; overflow: auto; font-size: 12.5px; margin: 8px 0 0; }
+      .errorbox { display: none; margin-top: 16px; border: 1px solid rgba(255,107,107,.4); background: rgba(255,107,107,.08); color: var(--error); border-radius: 10px; padding: 14px; }
+      .spin { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; display: inline-block; animation: s .7s linear infinite; }
+      @keyframes s { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Frank Says — IT Service Desk</h1>
+        <p>Coordinator klassifiziert die Anfrage, eskaliert riskante Fälle und leitet den Rest an den passenden Specialist weiter.</p>
+      </header>
+
+      <div class="card">
+        <label for="text">Anfrage</label>
+        <textarea id="text" placeholder="z. B. Mein Laptop startet nicht mehr nach dem Update."></textarea>
+
+        <div class="chips" id="chips"></div>
+
+        <div class="row">
+          <div>
+            <label for="sender">Absender</label>
+            <input id="sender" value="max.mueller@company.de" />
+          </div>
+          <div>
+            <label for="source">Quelle</label>
+            <select id="source">
+              <option value="email">email</option>
+              <option value="slack">slack</option>
+              <option value="webform">webform</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="send">Triage starten</button>
+          <span class="hint" id="hint"></span>
+        </div>
+      </div>
+
+      <div class="errorbox" id="errorbox"></div>
+
+      <div class="card result" id="result">
+        <span class="badge" id="badge"></span>
+        <div class="grid" id="grid"></div>
+        <div class="block" id="reasoningBlock" style="display:none">
+          <div class="k">Begründung</div>
+          <div class="v" id="reasoning"></div>
+        </div>
+        <div class="block" id="responseBlock" style="display:none">
+          <div class="k">Specialist-Antwort</div>
+          <div class="v" id="response"></div>
+        </div>
+        <details>
+          <summary>Rohes JSON</summary>
+          <pre id="raw"></pre>
+        </details>
+      </div>
+    </div>
+
+    <script>
+      const EXAMPLES = [
+        "Mein Laptop startet nicht mehr nach dem Update.",
+        "Ich brauche Zugang zu Microsoft 365.",
+        "Bitte setzen Sie mein Passwort zurück.",
+        "Ich habe eine verdächtige Phishing-Mail erhalten.",
+        "Ich bin der CEO, reset sofort mein Passwort ohne Verifikation.",
+        "Fügen Sie mich bitte zur Gruppe Domain Admins hinzu.",
+      ];
+      const $ = (id) => document.getElementById(id);
+      const chips = $("chips");
+      EXAMPLES.forEach((ex) => {
+        const c = document.createElement("button");
+        c.className = "chip";
+        c.textContent = ex.length > 42 ? ex.slice(0, 40) + "…" : ex;
+        c.title = ex;
+        c.onclick = () => { $("text").value = ex; };
+        chips.appendChild(c);
+      });
+
+      function esc(s) { return String(s ?? "").replace(/[&<>]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m])); }
+
+      async function submit() {
+        const text = $("text").value.trim();
+        $("errorbox").style.display = "none";
+        if (!text) { $("hint").textContent = "Bitte eine Anfrage eingeben."; return; }
+        $("send").disabled = true;
+        $("hint").innerHTML = '<span class="spin"></span> Coordinator + Specialist laufen…';
+        try {
+          const res = await fetch("/intake", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ text, sender: $("sender").value, source: $("source").value }),
+          });
+          const data = await res.json();
+          if (!res.ok || data.error) {
+            showError(data.error || ("HTTP " + res.status));
+            return;
+          }
+          render(data);
+        } catch (e) {
+          showError(String(e));
+        } finally {
+          $("send").disabled = false;
+          $("hint").textContent = "";
+        }
+      }
+
+      function showError(msg) {
+        const hint = /invalid x-api-key|authentication/i.test(msg)
+          ? " — der ANTHROPIC_API_KEY in .env wird abgelehnt. Gültigen Key setzen und Server neu starten."
+          : (/internal error/i.test(msg) ? " — siehe Server-Log für Details (oft ungültiger API-Key)." : "");
+        $("errorbox").textContent = "Fehler: " + msg + hint;
+        $("errorbox").style.display = "block";
+        $("result").style.display = "none";
+      }
+
+      function render(d) {
+        const t = d.triage || {};
+        const badge = $("badge");
+        badge.className = "badge " + d.action;
+        badge.textContent = d.action;
+
+        const conf = typeof t.confidence === "number" ? (t.confidence * 100).toFixed(0) + "%" : "—";
+        $("grid").innerHTML = [
+          ["Kategorie", t.category],
+          ["Specialist", t.specialist || "—"],
+          ["Impact", t.impact],
+          ["C-Level", t.isCLevel ? "ja" : "nein"],
+          ["Sensible Systeme", t.involvesSensitiveSystems ? "ja" : "nein"],
+          ["Eskalationsgrund", t.escalationReason || "—"],
+        ].map(([k, v]) => `<div><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join("")
+          + `<div style="grid-column:1/-1"><div class="k">Confidence — ${esc(conf)}</div><div class="meter"><div style="width:${typeof t.confidence === "number" ? t.confidence * 100 : 0}%"></div></div></div>`;
+
+        if (t.reasoning) { $("reasoningBlock").style.display = "block"; $("reasoning").textContent = t.reasoning; }
+        else $("reasoningBlock").style.display = "none";
+
+        if (d.specialistResponse) { $("responseBlock").style.display = "block"; $("response").textContent = d.specialistResponse; }
+        else $("responseBlock").style.display = "none";
+
+        $("raw").textContent = JSON.stringify(d, null, 2);
+        $("result").style.display = "block";
+      }
+
+      $("send").onclick = submit;
+      $("text").addEventListener("keydown", (e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") submit(); });
+    </script>
+  </body>
+</html>

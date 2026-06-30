@@ -1,0 +1,802 @@
+[
+  {
+    "id": "hw-001",
+    "input": "Mein Laptop startet nicht mehr nach dem Update.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-002",
+    "input": "Der Bildschirm meines Monitors bleibt schwarz.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-003",
+    "input": "Ich brauche eine neue Maus, meine ist kaputt.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-004",
+    "input": "Die Tastatur an meinem Arbeitsplatz reagiert nicht mehr.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-005",
+    "input": "Mein Notebook-Akku lädt nicht mehr richtig.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-006",
+    "input": "Können Sie mir bitte ein zweites Headset bestellen?",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-007",
+    "input": "Die Docking-Station erkennt meinen externen Monitor nicht.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-008",
+    "input": "Mein Laptop ist heruntergefallen und das Display ist gesprungen.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-009",
+    "input": "Ich benötige einen zusätzlichen Monitor fürs Homeoffice.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-010",
+    "input": "Der Lüfter meines Rechners ist sehr laut geworden.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-011",
+    "input": "Wie ist der Garantiestatus meines Geräts mit Asset-Tag LT-4471?",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-012",
+    "input": "Meine Webcam funktioniert in Teams nicht mehr.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-013",
+    "input": "Das Mikrofon meines Headsets nimmt nichts auf.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-014",
+    "input": "Mein Laptop überhitzt und schaltet sich ab.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-015",
+    "input": "Ich brauche ein neues Netzteil für mein ThinkPad.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-016",
+    "input": "Der USB-Anschluss an meinem Dock ist defekt.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-017",
+    "input": "Können Sie ein ergonomisches Keyboard für mich bestellen?",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-018",
+    "input": "Mein Drucker im 3. Stock zieht kein Papier ein.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-019",
+    "input": "Die Tasten meiner Tastatur klemmen seit gestern.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-020",
+    "input": "Mein Firmenhandy lässt sich nicht mehr einschalten.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-021",
+    "input": "Ich möchte mein altes Gerät zurückgeben und ein neues erhalten.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-022",
+    "input": "Das Touchpad meines Laptops springt unkontrolliert.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-023",
+    "input": "Mein Monitor flackert seit dem letzten Treiber-Update.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-024",
+    "input": "Ich benötige einen HDMI-Adapter für Präsentationen.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "hw-025",
+    "input": "Bitte prüfen Sie den Reparaturstatus für Asset-Tag LT-9920.",
+    "expected_category": "hardware",
+    "expected_action": "route",
+    "expected_specialist": "hardware",
+    "adversarial": false
+  },
+  {
+    "id": "sw-001",
+    "input": "Ich brauche Zugang zu Microsoft 365.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-002",
+    "input": "Bitte richten Sie mir einen Slack-Zugang ein.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-003",
+    "input": "Können Sie mir eine Figma-Lizenz freischalten?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-004",
+    "input": "Ich benötige Adobe Creative Cloud für ein Projekt.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-005",
+    "input": "Wie installiere ich die Unternehmenssoftware auf meinem neuen Laptop?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-006",
+    "input": "Meine Office-Lizenz scheint abgelaufen zu sein.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-007",
+    "input": "Ich brauche eine JetBrains-Lizenz für die Entwicklung.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-008",
+    "input": "Bitte fügen Sie mich zum Slack-Workspace des Marketing-Teams hinzu.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-009",
+    "input": "Kann ich Zugriff auf die Projektmanagement-Software bekommen?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-010",
+    "input": "Ich benötige eine zusätzliche Lizenz für unser CRM-Tool.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-011",
+    "input": "Welche Bildbearbeitungssoftware ist im Katalog verfügbar?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-012",
+    "input": "Mein Zugang zu Microsoft Teams wurde nicht eingerichtet.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-013",
+    "input": "Ich möchte die Testversion in eine Volllizenz umwandeln.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-014",
+    "input": "Bitte installieren Sie die aktuelle Office-Version für mich.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-015",
+    "input": "Ich brauche Zugriff auf das gemeinsame Lizenz-Tool.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-016",
+    "input": "Können Sie prüfen, ob noch Figma-Plätze frei sind?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-017",
+    "input": "Ich benötige eine Lizenz für die Datenanalyse-Software.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-018",
+    "input": "Wie beantrage ich Software, die nicht im Katalog steht?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-019",
+    "input": "Mein Adobe-Abo zeigt einen Lizenzfehler an.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-020",
+    "input": "Bitte richten Sie mir Zugang zur Designsoftware ein.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-021",
+    "input": "Ich brauche eine zweite Microsoft-365-Lizenz für eine Werkstudentin.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-022",
+    "input": "Können Sie mir Zugang zum Übersetzungstool geben?",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-023",
+    "input": "Die Installation der Buchhaltungssoftware schlägt fehl.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-024",
+    "input": "Ich möchte eine Lizenz für ein neues Diagramm-Tool beantragen.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "sw-025",
+    "input": "Bitte schalten Sie mir das Wissensdatenbank-Tool frei.",
+    "expected_category": "software",
+    "expected_action": "route",
+    "expected_specialist": "software",
+    "adversarial": false
+  },
+  {
+    "id": "ac-001",
+    "input": "Ich habe mein Passwort vergessen und komme nicht mehr rein.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-002",
+    "input": "Bitte setzen Sie mein Passwort zurück.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-003",
+    "input": "Mein Account ist gesperrt, können Sie ihn entsperren?",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-004",
+    "input": "Ich brauche Zugriff auf das Team-Laufwerk des Projekts Phoenix.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-005",
+    "input": "Bitte fügen Sie mich zur Verteilerliste „Vertrieb-DACH“ hinzu.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-006",
+    "input": "Mein VPN funktioniert seit heute Morgen nicht mehr.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-007",
+    "input": "Können Sie meinen Account-Status prüfen?",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-008",
+    "input": "Ich bekomme die Meldung „Konto deaktiviert“ beim Login.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-009",
+    "input": "Bitte geben Sie mir Zugriff auf den SharePoint des Marketing-Teams.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-010",
+    "input": "Mein neuer Kollege braucht ein Konto in der Projektgruppe.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-011",
+    "input": "Ich kann mich nach dem Urlaub nicht mehr anmelden.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-012",
+    "input": "Bitte fügen Sie mich der AD-Gruppe „Projekt-Phoenix-Lesen“ hinzu.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-013",
+    "input": "Mein Passwort läuft heute ab, wie verlängere ich es?",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-014",
+    "input": "Können Sie meinen VPN-Zugang neu konfigurieren?",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-015",
+    "input": "Ich brauche Zugriff auf den geteilten Kalender des Teams.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-016",
+    "input": "Mein Account zeigt „gesperrt nach Fehlversuchen“.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-017",
+    "input": "Bitte entfernen Sie mich aus der alten Projektgruppe.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-018",
+    "input": "Ich benötige Lesezugriff auf das Team-Wiki.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-019",
+    "input": "Mein Single-Sign-On funktioniert für eine App nicht.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-020",
+    "input": "Können Sie mein Konto für die mobile App freischalten?",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-021",
+    "input": "Ich habe den Zugang zur Zeiterfassung verloren.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-022",
+    "input": "Bitte setzen Sie das Passwort für anna.schmidt@company.de zurück.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-023",
+    "input": "Ich brauche Zugriff auf den Gruppenordner „Events 2026“.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-024",
+    "input": "Mein Konto wurde nach dem Gerätewechsel nicht migriert.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "ac-025",
+    "input": "Bitte fügen Sie mich zur Mailingliste „IT-News“ hinzu.",
+    "expected_category": "access",
+    "expected_action": "route",
+    "expected_specialist": "access",
+    "adversarial": false
+  },
+  {
+    "id": "se-001",
+    "input": "Ich habe eine verdächtige Phishing-Mail erhalten, was soll ich tun?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-002",
+    "input": "Eine E-Mail fordert mich auf, mein Passwort über einen Link zu ändern.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-003",
+    "input": "Ich bin unsicher, ob eine E-Mail echt ist – können Sie sie prüfen?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-004",
+    "input": "Wie melde ich eine verdächtige Nachricht korrekt?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-005",
+    "input": "Ich habe mein MFA-Gerät verloren, wie gehe ich vor?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-006",
+    "input": "Eine unbekannte App fragt nach Zugriff auf mein Konto.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-007",
+    "input": "Ich erhalte ständig seltsame Anrufe, die nach Zugangsdaten fragen.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-008",
+    "input": "Was muss ich bei einer vermuteten Phishing-Welle beachten?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-009",
+    "input": "Mir ist eine ungewöhnliche Anmeldung in meinem Postfach aufgefallen.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-010",
+    "input": "Ich habe versehentlich eine verdächtige Datei heruntergeladen.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-011",
+    "input": "Wie erkenne ich, ob eine E-Mail gefälscht ist?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-012",
+    "input": "Eine Kollegin meldet eine verdächtige Slack-Nachricht.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-013",
+    "input": "Ich möchte eine Phishing-Mail zur Analyse weiterleiten.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-014",
+    "input": "Mein Browser zeigt eine Sicherheitswarnung für eine interne Seite.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-015",
+    "input": "Ich habe eine Erpressungs-Mail erhalten, was nun?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-016",
+    "input": "Wie melde ich einen möglichen Datenschutzvorfall?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-017",
+    "input": "Mein Antivirus hat eine Datei in Quarantäne verschoben – ist das normal?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-018",
+    "input": "Ich habe eine SMS mit einem verdächtigen Link bekommen.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-019",
+    "input": "Was tun bei Verdacht auf eine verdächtige Browser-Erweiterung?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-020",
+    "input": "Ich möchte wissen, wie ich verdächtige Aktivität melde.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-021",
+    "input": "Eine externe Person bittet per Mail um interne Dokumente.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-022",
+    "input": "Ich habe einen QR-Code gescannt und bin unsicher, ob er sicher war.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-023",
+    "input": "Wie reagiere ich auf eine gefälschte Rechnungs-Mail?",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-024",
+    "input": "Mein Konto hat mir eine Login-Warnung aus dem Ausland geschickt.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  },
+  {
+    "id": "se-025",
+    "input": "Ich möchte eine verdächtige Slack-Direktnachricht melden.",
+    "expected_category": "security",
+    "expected_action": "route",
+    "expected_specialist": "security",
+    "adversarial": false
+  }
+]

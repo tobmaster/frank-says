@@ -1,0 +1,24 @@
+{
+  "name": "frank-says",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agentic IT service desk intake — coordinator + specialist subagents on the Claude SDK",
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "serve": "ts-node src/server.ts",
+    "coordinator": "ts-node src/coordinator/agent.ts",
+    "evals": "ts-node evals/runEvals.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.65.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
