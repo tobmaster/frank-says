@@ -10,9 +10,9 @@ The system replaces a 3-person manual triage team that handles ~200 daily IT req
 
 ## Technology
 
-- **Language:** TypeScript (strict mode)
+- **Language:** TypeScript (Node.js 20+, strict mode)
 - **SDK:** `@anthropic-ai/sdk` (official TypeScript SDK)
-- **Model:** `claude-opus-4-6`
+- **Model:** `claude-opus-4-8` with `thinking: { type: "enabled", budget_tokens: 5000 }`
 - **Structured output:** Zod schemas + tool-forced structured output
 - **No external services needed for MVP:** all tools have stub implementations; real integrations (AD, SMTP, ITSM) are wired later
 
@@ -55,12 +55,14 @@ frank-says/
 
 ## Step 1: Project Bootstrap
 
-`package.json` dependencies:
+Create `package.json`, `tsconfig.json`, and `.env.example`:
+
 ```json
 {
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.30.0",
+    "@anthropic-ai/sdk": "^0.40.0",
     "zod": "^3.23.0",
+    "pino": "^9.0.0",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {
@@ -80,7 +82,7 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 ## Step 2: Coordinator — Structured Output Schema (`src/coordinator/models.ts`)
 
-```ts
+```typescript
 import { z } from "zod";
 
 export const TriageResult = z.object({
@@ -123,12 +125,12 @@ export type TriageResult = z.infer<typeof TriageResult>;
 
 Each specialist is an **isolated agentic loop** — no coordinator context is passed through. The coordinator passes only:
 
-```ts
+```typescript
 {
-  requestText: string;      // original user text
-  category: string;
-  impact: string;
-  affectedUser: string;
+  requestText: "...",      // original user text
+  category: "access",
+  impact: "medium",
+  affectedUser: "max.mueller@company.de"
 }
 ```
 
@@ -159,9 +161,10 @@ Deterministic hard-stops applied before every tool call in every specialist loop
 | `quarantineAccount` with reason shorter than 20 chars | `BLOCKED_QUARANTINE_NO_REASON` |
 
 Hook signature:
-```ts
-function preToolUseHook(toolName: string, toolInput: Record<string, unknown>): { isError: true; reasonCode: string; guidance: string } | null
-// Returns null (OK) or an error object to block the call
+```typescript
+function preToolUseHook(toolName: string, toolInput: Record<string, unknown>): { isError: true; reasonCode: string; guidance: string } | null {
+  // Returns null (OK) or { isError: true, reasonCode: "...", guidance: "..." }
+}
 ```
 
 ---
@@ -218,7 +221,7 @@ Outputs a JSON report + prints summary table. Designed to run in CI: `npx ts-nod
 
 ## Entry Point (`src/main.ts`)
 
-```ts
+```typescript
 const result = await processRequest({
   source: "email",
   text: "Mein Laptop startet nicht mehr",

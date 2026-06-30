@@ -20,7 +20,7 @@ A coordinator agent classifies incoming IT requests and delegates to specialist 
 - Tool names: `camelCase`, descriptive verbs (`lookupAsset`, `resetPassword`, `createTicket`)
 
 ### Escalation Schema
-```ts
+```typescript
 {
   escalate: true,
   reason: "privileged_account",  // "category" | "confidence_low" | "c_level" | "sensitive_data" | "privileged_account"
@@ -39,12 +39,12 @@ Located in `src/hooks/preToolUseHook.ts`.
 
 ## Code Conventions
 
-- TypeScript (strict mode)
-- All inputs/outputs typed via interfaces in `src/models.ts`
+- Node.js 20+ / TypeScript 5+ (strict mode)
+- Zod schemas for all inputs/outputs (`src/models.ts`)
 - `RequestCategory` enum: `HARDWARE | SOFTWARE | ACCESS | SECURITY | UNKNOWN`
 - `ImpactLevel` enum: `LOW | MEDIUM | HIGH | CRITICAL`
 - All agents log their reasoning chain, not just the final answer
-- Structured JSON logging throughout
+- Use `pino` for structured logging (JSON output)
 
 ## File Structure
 
@@ -54,7 +54,7 @@ src/
   specialists/            # One file per specialist agent
   tools/                  # Tool implementations (not agent logic)
   hooks/                  # PreToolUse hooks
-  models.ts               # Shared interfaces and enums
+  models.ts               # Zod schemas and shared types
 evals/
   dataset.jsonl           # Labeled examples — NEVER delete entries, only append
   runEvals.ts             # Runs against full dataset, outputs scorecard

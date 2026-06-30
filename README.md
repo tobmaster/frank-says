@@ -57,7 +57,7 @@ frank-says/
 │   │   └── securityAgent.ts
 │   ├── tools/                  # Custom tools per specialist
 │   ├── hooks/                  # PreToolUse hook implementation
-│   └── models.ts               # Shared interfaces and enums
+│   └── models.ts               # Shared data models + Zod schemas
 ├── evals/
 │   ├── dataset.jsonl           # Labeled eval set (normal + adversarial)
 │   └── runEvals.ts             # Eval harness
