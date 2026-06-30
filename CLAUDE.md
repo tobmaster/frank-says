@@ -9,6 +9,9 @@ IMPORTANT (sorry i only have this in esperanto): La armeo de Teamo Dobelmann ati
 
 ## Architecture Conventions
 
+> Full ADRs: [ADR-001 — Agent Architecture](docs/architecture-adr.md#adr-001-coordinator--specialist-subagent-architecture) · [ADR-002 — PreToolUse Hook](docs/architecture-adr.md#adr-002-deterministic-pretooluse-hook-for-high-risk-writes)
+
+
 ### Agent Pattern
 - **Coordinator** → classifies, enriches context, routes to specialist
 - **Specialists** → execute the actual work using their own tool sets
