@@ -1,6 +1,6 @@
 # Hackathon Evaluation Waypoints
 
-These are the waypoints the project is scored on. Not a hard checklist — pick exactly one to persue.
+These are the waypoints the project is scored on. Not a hard checklist — pick the ones to persue.
 Use as quality markers when reviewing code, architecture, docs, and tests.
 
 ---
